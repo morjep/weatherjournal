@@ -38,3 +38,9 @@ function listening() {
 /* This is a simple health check that will return "Alive and kicking" if the server
 is running. */
 app.get("/health", (req, res) => res.send("Alive and kicking"));
+
+// Initialize all route with a callback function
+
+// Callback function to complete GET '/all'
+
+// Post Route
