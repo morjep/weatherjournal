@@ -1,5 +1,5 @@
 // Setup empty JS object to act as endpoint for all routes
-projectData = {};
+let projectData = {};
 
 // Require Express to run server and routes
 const express = require("express");
@@ -24,23 +24,37 @@ app.use(express.static('website'));
 
 // Setup Server
 const port = 8000;
-const server = app.listen(port, listening);
-function listening() {
-  //console.log(server);
+const server = app.listen(port, ()=>{
   console.log(`running on localhost: ${port}`);
   console.log(`use "curl localhost:${port}/health" for simple alive check`);
-}
+  console.log('- '.repeat(40));
+});
 
 /*
  Setup routes
 */
 
+
+/**
+ * Logs the request method and url to the console.
+ * @param req - the request object
+ */
+function logRequest(req){
+  console.log(`${req.method} request on ${req.url}`);
+}
+
+
 /* This is a simple health check that will return "Alive and kicking" if the server
 is running. */
-app.get("/health", (req, res) => res.send("Alive and kicking"));
+app.get("/health", (req, res) => {
+  logRequest(req);
+  res.send("Alive and kicking")
+});
 
-// Initialize all route with a callback function
-
-// Callback function to complete GET '/all'
+/* Sending the projectData object to the client. */
+app.get('/all', (req, res) => {
+  logRequest(req);
+  res.send(projectData);
+});
 
 // Post Route
