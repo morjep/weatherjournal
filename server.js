@@ -48,7 +48,13 @@ function logRequest(req){
 is running. */
 app.get("/health", (req, res) => {
   logRequest(req);
-  res.send("Alive and kicking")
+  let date = new Date();
+  const healthcheck = {
+		message: 'OK',
+    uptime: process.uptime(),
+		timestamp: date.toUTCString()
+	};
+	res.send(healthcheck);
 });
 
 /* Sending the projectData object to the client. */
