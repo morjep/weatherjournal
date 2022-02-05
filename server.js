@@ -6,7 +6,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-
 // Start up an instance of app
 const app = express();
 
@@ -19,30 +18,27 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Initialize the main project folder
-app.use(express.static('website'));
-
+app.use(express.static("website"));
 
 // Setup Server
 const port = 8000;
-const server = app.listen(port, ()=>{
+const server = app.listen(port, () => {
   console.log(`running on localhost: ${port}`);
   console.log(`use "curl localhost:${port}/health" for simple alive check`);
-  console.log('- '.repeat(40));
+  console.log("- ".repeat(40));
 });
 
 /*
  Setup routes
 */
 
-
 /**
  * Logs the request method and url to the console.
  * @param req - the request object
  */
-function logRequest(req){
+function logRequest(req) {
   console.log(`${req.method} request on ${req.url}`);
 }
-
 
 /* This is a simple health check that will return "Alive and kicking" if the server
 is running. */
@@ -50,17 +46,29 @@ app.get("/health", (req, res) => {
   logRequest(req);
   let date = new Date();
   const healthcheck = {
-		message: 'OK',
+    message: "OK",
     uptime: process.uptime(),
-		timestamp: date.toUTCString()
-	};
-	res.send(healthcheck);
+    timestamp: date.toUTCString(),
+  };
+  res.send(healthcheck);
 });
 
 /* Sending the projectData object to the client. */
-app.get('/all', (req, res) => {
+app.get("/all", (req, res) => {
   logRequest(req);
   res.send(projectData);
 });
 
-// Post Route
+/* The server receives a POST request with the temperature, date, and comment. It
+then adds the new entry to the projectData array. */
+app.post("/all", (req, res) => {
+  logRequest(req);
+  let date = new Date();
+
+  projectData['temp'] = req.body.temp;
+  projectData['date'] = req.body.date;
+  projectData['comment'] = req.body.comment;
+  projectData['timestamp'] =  date.toUTCString(),
+
+  console.log(projectData);
+});
