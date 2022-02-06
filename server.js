@@ -71,4 +71,5 @@ app.post("/all", (req, res) => {
   projectData['timestamp'] =  date.toUTCString(),
 
   console.log(projectData);
+  res.send(projectData);
 });
