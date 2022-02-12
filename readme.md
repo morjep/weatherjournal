@@ -11,7 +11,16 @@ The app consists of the following components:
 - website/index.html (the actual webpage)
 - website/style.css (the styling of the webpage)
 
-You run the server.js as:
-> node server.js
+You run the server.js with node:
+````
+node server.js
+````
 
-The webpage (index.html) you open in your browser.
+The webpage (index.html) you open in you browser.
+## Dependencies
+
+You need the following libraries installed:
+- Node.js
+- express
+- body-parser
+- cors
