@@ -2,9 +2,7 @@
 // Personal API Key for OpenWeatherMap API
 const apiKey = "appid=38f2e76f80a102aac53d76765dc65879&units=imperial";
 const apiUrl = "https://api.openweathermap.org/data/2.5/weather";
-const testApiZip = "zip=9270,DK";
 const serverUrl = "http://localhost:8000";
-
 
 /**
  * Takes a date object, returns a string of the date in the format YYYY-MM-DD.
@@ -13,18 +11,18 @@ const serverUrl = "http://localhost:8000";
 const formatYmd = (date) => date.toISOString().slice(0, 10);
 
 /* The event listener is added to the generate button
-* Upon click it triggers the async call chain
-* getWeatherAPIData --> postData --> getDataFromServer
-* Finally the webpage is updated with the serverside data.
-*/
+ * Upon click it triggers the async call chain
+ * getWeatherAPIData --> postData --> getDataFromServer
+ * Finally the webpage is updated with the serverside data.
+ */
 const generateButton = document.getElementById("generate");
 generateButton.addEventListener("click", () => {
   let zipElem = document.getElementById("zip").value;
   let countryElem = document.getElementById("country").value;
 
   /* Create URL that will be used to request data from the API.
-  * Should probably include some error checking
-  */
+   * Should probably include some error checking
+   */
   url = apiUrl + "?" + "zip=" + zipElem + "," + countryElem + "&" + apiKey;
 
   /* Get the weather API data and store it in the userData object. */
@@ -37,8 +35,8 @@ generateButton.addEventListener("click", () => {
     /* Post data to server */
     postData(serverUrl + "/all", userData).then((newData) => {
       /* The getDataFromServer() function is called, which returns a promise.
-      * web-page is updated with server side data.
-      */
+       * web-page is updated with server side data.
+       */
       getDataFromServer(serverUrl + "/all").then((serverData) => {
         console.log("More here!!!");
         let entryDate = document.getElementById("date");

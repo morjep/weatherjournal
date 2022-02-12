@@ -65,11 +65,9 @@ app.post("/all", (req, res) => {
   logRequest(req);
   let date = new Date();
 
-  projectData['temp'] = req.body.temp;
-  projectData['date'] = req.body.date;
-  projectData['comment'] = req.body.comment;
-  projectData['timestamp'] =  date.toUTCString(),
-
-  console.log(projectData);
+  projectData["temp"] = req.body.temp;
+  projectData["date"] = req.body.date;
+  projectData["comment"] = req.body.comment;
+  (projectData["timestamp"] = date.toUTCString()), console.log(projectData);
   res.send(projectData);
 });
